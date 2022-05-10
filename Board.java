@@ -6,21 +6,14 @@ import javax.swing.*;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
 
-    // controls the delay between each tick in ms
     private final int DELAY = 25;
-    // controls the size of the board
-    public static final int TILE_SIZE = 50;
-    public static final int ROWS = 12;
-    public static final int COLUMNS = 18;
-    // controls how many coins appear on the board
-    public static final int NUM_COINS = 5;
-    // suppress serialization warning
+    public static final int TILE_SIZE = 80;
+    public static final int ROWS = 13;
+    public static final int COLUMNS = 24;
+    public static final int NUM_COINS = 50;
     private static final long serialVersionUID = 490905409104883233L;
-    
-    // keep a reference to the timer object that triggers actionPerformed() in
-    // case we need access to it in another method
+
     private Timer timer;
-    // objects that appear on the game board
     private Player player;
     private ArrayList<Coin> coins;
 
@@ -28,7 +21,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // set the game board size
         setPreferredSize(new Dimension(TILE_SIZE * COLUMNS, TILE_SIZE * ROWS));
         // set the game board background color
-        setBackground(new Color(232, 232, 232));
+        setBackground(new Color(0x098609));
 
         // initialize the game state
         player = new Player();
@@ -94,12 +87,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     private void drawBackground(Graphics g) {
         // draw a checkered background
-        g.setColor(new Color(214, 214, 214));
+        g.setColor(new Color(15, 150, 30));
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLUMNS; col++) {
-                // only color every other tile
                 if ((row + col) % 2 == 1) {
-                    // draw a square tile at the current row/column position
                     g.fillRect(
                         col * TILE_SIZE, 
                         row * TILE_SIZE, 
@@ -112,9 +103,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     }
 
     private void drawScore(Graphics g) {
-        // set the text to be displayed
-        String text = "$" + player.getScore();
-        // we need to cast the Graphics to Graphics2D to draw nicer text
+        String text = "Souls" + player.getScore();
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(
             RenderingHints.KEY_TEXT_ANTIALIASING,
